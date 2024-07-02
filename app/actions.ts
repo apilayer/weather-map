@@ -17,10 +17,7 @@ export const getWeather = async (place: string) => {
 };
 
 // getting user's ip and current location
-const publicIp = require("react-public-ip");
-export const getUserLocationFromIP = async () => {
-  const ip = (await publicIp.v6()) || "";
-  console.log(ip);
+export const getUserLocationFromIP = async (ip: string) => {
   const response = await fetch(`http://ip-api.com/json/${ip}`);
   const geo = await response.json();
   return geo;

@@ -50,7 +50,10 @@ export default function App() {
   useEffect(() => {
     const fetchUserLocation = async () => {
       try {
-        const data = await getUserLocationFromIP();
+        const getIp = await fetch("https://api.ipify.org/?format=json");
+        const res = await getIp.json();
+
+        const data = await getUserLocationFromIP(res.ip);
 
         const position = {
           longitude: data.lon,
