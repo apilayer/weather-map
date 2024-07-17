@@ -15,10 +15,3 @@ export const getWeather = async (place: string) => {
     console.error(error);
   }
 };
-
-// getting user's ip and current location
-export const getUserLocationFromIP = async (ip: string) => {
-  const response = await fetch(`http://ip-api.com/json/${ip}`);
-  const geo = await response.json();
-  return geo;
-};

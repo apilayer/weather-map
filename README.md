@@ -35,6 +35,7 @@ To set up the World Weather Map project locally, follow these steps:
    ```
     WEATHERSTACK_API_KEY=
     NEXT_PUBLIC_MAPBOX_API_KEY=
+    NEXT_PUBLIC_IPSTACK_API_KEY=
    ```
 
 5. Run the development server:
@@ -54,6 +55,7 @@ To set up the World Weather Map project locally, follow these steps:
 
 - [Next.js](https://nextjs.org/)
 - Weather data provided by [WeatherStack API](https://weatherstack.com/)
+- IP information provided by [IpStack API](https://ipstack.com/)
 - Map functionality powered by [MapBox](https://www.mapbox.com/)
 
 ## Contributing

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import WeatherCard from "@/components/WeatherCard";
 import GeocoderControl from "@/components/geocoder-control";
-import { getUserLocationFromIP, getWeather } from "./actions";
+import { getWeather } from "./actions";
 import ArrowComponent from "@/components/ArrowComponent";
 
 const mapboxAPIKey = process.env.NEXT_PUBLIC_MAPBOX_API_KEY as string;
@@ -48,18 +48,23 @@ export default function App() {
 
   // fetching current location of user
   useEffect(() => {
+    let isMounted = true;
+    const ipStackAPIKey = process.env.NEXT_PUBLIC_IPSTACK_API_KEY;
+
     const fetchUserLocation = async () => {
       try {
-        const getIp = await fetch("https://api.ipify.org/?format=json");
-        const res = await getIp.json();
+        const getIp = await fetch(
+          `http://api.ipstack.com/check?access_key=${ipStackAPIKey}`
+        );
+        const data = await getIp.json();
 
-        const data = await getUserLocationFromIP(res.ip);
+        if (!isMounted) return;
 
         const position = {
-          longitude: data.lon,
-          latitude: data.lat,
+          longitude: data.longitude,
+          latitude: data.latitude,
           zoom: 12,
-          query: data.city,
+          query: data.region_name,
         };
         setPlace(position);
       } catch (error) {
@@ -68,6 +73,10 @@ export default function App() {
     };
 
     fetchUserLocation();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // fetching weather of newly entered region
